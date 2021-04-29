@@ -1,9 +1,11 @@
+namespace SpriteKind {
+    export const apple = SpriteKind.create()
+}
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     Man.vy += -1
 })
 sprites.onCreated(SpriteKind.Food, function (sprite) {
-    bannan1.setImage(assets.image`banna`)
-    bannan1.setPosition(randint(scene.screenWidth(), 10), randint(0, 10))
+    sprite.setPosition(randint(scene.screenWidth(), 10), randint(0, 10))
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     Man.vx += -1
@@ -15,15 +17,15 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     Man.vy += 1
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
-    effects.clearParticles(bannan1)
-    effects.clearParticles(apple)
+    effects.clearParticles(otherSprite)
+    otherSprite.setPosition(randint(10, scene.screenWidth()), randint(10, scene.screenHeight()))
+    info.changeScoreBy(1)
 })
-let apple: Sprite = null
-let bannan1: Sprite = null
 let Man: Sprite = null
+info.startCountdown(30)
 scene.setBackgroundColor(13)
 Man = sprites.create(assets.image`Man`, SpriteKind.Player)
-bannan1 = sprites.create(img`
+let bannan1 = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -41,21 +43,51 @@ bannan1 = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Food)
-apple = sprites.create(img`
+let banana2 = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
-    . . . . . . 7 7 . . . . . . . . 
-    . . . . . . . 7 . . . . . . . . 
-    . . . . 2 2 2 2 2 2 . . . . . . 
-    . . . 2 2 2 2 2 2 2 2 . . . . . 
-    . . . 2 2 2 2 2 2 2 2 . . . . . 
-    . . . 2 2 2 2 2 2 2 2 . . . . . 
-    . . . 2 2 2 2 2 2 2 2 . . . . . 
-    . . . 2 2 2 2 2 2 2 2 . . . . . 
-    . . . 2 2 2 2 2 2 2 . . . . . . 
-    . . . . 2 2 2 2 2 2 . . . . . . 
-    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . e . . . . . . 
+    . . . . . . . 5 5 5 . . . . . . 
+    . . . . . . 5 5 5 . . . . . . . 
+    . . . . . 5 5 5 . . . . . . . . 
+    . . . . . 5 5 5 . . . . . . . . 
+    . . . . . 5 5 5 . . . . . . . . 
+    . . . . . 5 5 5 . . . . . . . . 
+    . . . . . . 5 5 5 . . . . . . . 
+    . . . . . . . 5 5 5 . . . . . . 
+    . . . . . . . . 5 5 . . . . . . 
+    . . . . . . . . . 5 e . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Food)
+let banana_3 = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . e . . . . . . 
+    . . . . . . . 5 5 5 . . . . . . 
+    . . . . . . 5 5 5 . . . . . . . 
+    . . . . . 5 5 5 . . . . . . . . 
+    . . . . . 5 5 5 . . . . . . . . 
+    . . . . . 5 5 5 . . . . . . . . 
+    . . . . . 5 5 5 . . . . . . . . 
+    . . . . . . 5 5 5 . . . . . . . 
+    . . . . . . . 5 5 5 . . . . . . 
+    . . . . . . . . 5 5 . . . . . . 
+    . . . . . . . . . 5 e . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Food)
+let apple = sprites.create(assets.image`apple`, SpriteKind.Food)
+let apple2 = sprites.create(assets.image`apple`, SpriteKind.Food)
+let apple3 = sprites.create(assets.image`apple`, SpriteKind.Food)
+Man.setStayInScreen(true)
+bannan1.setStayInScreen(true)
+banana2.setStayInScreen(true)
+banana_3.setStayInScreen(true)
+banana_3.setStayInScreen(true)
+apple.setStayInScreen(true)
+apple2.setStayInScreen(true)
+apple3.setStayInScreen(true)
+info.setScore(0)
